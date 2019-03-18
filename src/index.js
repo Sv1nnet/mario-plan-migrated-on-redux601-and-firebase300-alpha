@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { createFirestoreInstance, reduxFirestore, getFirestore } from 'redux-firestore';
 import { ReactReduxFirebaseProvider, getFirebase } from 'react-redux-firebase';
-import fbConfig from './config/fbConfig';
+import firebase from './config/fbConfig';
 
 import './index.css';
 import App from './App';
@@ -26,13 +26,11 @@ const rrfConfig = {
 };
 
 const rrfProps = {
-  firebase: fbConfig,
+  firebase,
   config: rrfConfig,
   dispatch: store.dispatch,
   createFirestoreInstance,
 };
-
-console.log('rrfProps', rrfProps);
 
 ReactDOM.render(
   <Provider store={store}>
