@@ -1,13 +1,16 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/label-has-for */
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { firebaseConnect } from 'react-redux-firebase';
+import { compose } from 'redux';
+
+import signIn from '../../store/actions/authActions';
 
 class SignIn extends Component {
   state = {
     email: '',
     password: '',
-    firstName: '',
-    lastName: '',
   }
 
   handleChange = (e) => {
@@ -21,10 +24,22 @@ class SignIn extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log(this.state);
+
+    // As we use react-redux-firebas-v3 we need to pass firebase object to
+    // authActions to be authorized by using firebse.auth method
+    const { props, state } = this;
+    const { firebase } = props;
+    const credentials = { ...state };
+    const authData = {
+      firebase,
+      credentials,
+    };
+
+    props.signIn(authData);
   }
 
   render() {
+    const { authError } = this.props;
     return (
       <div className="container">
         <form onSubmit={this.handleSubmit} className="white">
@@ -39,6 +54,7 @@ class SignIn extends Component {
           </div>
           <div className="input-field">
             <button type="submit" className="btn pink lighten-1 z-depth-0">Login</button>
+            {authError ? <div className="red-text center"><p>{authError}</p></div> : null}
           </div>
         </form>
       </div>
@@ -46,4 +62,19 @@ class SignIn extends Component {
   }
 }
 
-export default SignIn;
+const mapStateToProps = state => ({
+  authError: state.auth.authError,
+});
+
+const mapDispatchToProps = dispatch => ({
+  signIn: authData => dispatch(signIn(authData)),
+});
+
+// We need firebaseConnect function to provide to this component
+// firebase object with auth method
+// You can find more information here on link below
+// http://docs.react-redux-firebase.com/history/v3.0.0/docs/auth.html
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  firebaseConnect(),
+)(SignIn);

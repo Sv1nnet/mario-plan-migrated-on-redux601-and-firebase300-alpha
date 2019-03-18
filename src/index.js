@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware, compose } from 'redux';
@@ -13,17 +14,19 @@ import * as serviceWorker from './serviceWorker';
 
 import rootReducer from './store/reducers/rootReducer';
 
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const rrfConfig = {
+  useFirestoreForProfile: true,
+  userProfile: 'users',
+  attachAuthIsReady: true, // Firestore for Profile instead of Realtime DB
+};
+
 const store = createStore(rootReducer,
-  compose(
+  composeEnhancers(
     applyMiddleware(thunk.withExtraArgument({ getFirebase, getFirestore })),
     reduxFirestore(firebase),
   ));
-
-
-const rrfConfig = {
-  userProfile: 'users',
-  useFirestoreForProfile: true, // Firestore for Profile instead of Realtime DB
-};
 
 const rrfProps = {
   firebase,

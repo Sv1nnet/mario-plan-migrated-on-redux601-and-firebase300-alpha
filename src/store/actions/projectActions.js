@@ -6,9 +6,13 @@ const createProject = project => (dispatch, getState, { getFirebase, getFirestor
     authorLastName: 'Ninja',
     authorId: 123,
     createdAt: new Date(),
-  })
-    .then(() => dispatch({ type: 'CREATE_PROJECT', project }))
-    .catch(err => dispatch({ type: 'CREATE_PROJECT_ERROR', err }));
+  }).then(() => dispatch({
+    type: 'CREATE_PROJECT',
+    project,
+  })).catch(err => dispatch({
+    type: 'CREATE_PROJECT_ERROR',
+    err,
+  }));
 };
 
 export default createProject;
