@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { firebaseConnect } from 'react-redux-firebase';
 import { compose } from 'redux';
 
-import signIn from '../../store/actions/authActions';
+import { signIn } from '../../store/actions/authActions';
 
 class SignIn extends Component {
   state = {
@@ -75,6 +75,6 @@ const mapDispatchToProps = dispatch => ({
 // You can find more information on the link below
 // http://docs.react-redux-firebase.com/history/v3.0.0/docs/auth.html
 export default compose(
-  connect(mapStateToProps, mapDispatchToProps),
   firebaseConnect(),
+  connect(mapStateToProps, mapDispatchToProps),
 )(SignIn);

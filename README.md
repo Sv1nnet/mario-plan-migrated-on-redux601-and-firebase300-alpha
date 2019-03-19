@@ -14,3 +14,5 @@ I left description about changes in the changed files:
 - authActions.js
 - fbConfig.js
 - SignIn.jsx
+- SignedInLinks.jsx
+- Navbar.jsx

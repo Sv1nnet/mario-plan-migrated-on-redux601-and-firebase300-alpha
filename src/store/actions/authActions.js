@@ -1,5 +1,5 @@
 // Here we destructure authData object and do authorization
-const signIn = ({ credentials, firebase }) => (dispatch, getState) => {
+export const signIn = ({ credentials, firebase }) => (dispatch, getState) => {
   firebase.auth().signInWithEmailAndPassword(
     credentials.email,
     credentials.password,
@@ -10,4 +10,8 @@ const signIn = ({ credentials, firebase }) => (dispatch, getState) => {
   });
 };
 
-export default signIn;
+export const signOut = firebase => (dispatch, getState) => {
+  firebase.auth().signOut().then(() => {
+    dispatch({ type: 'SIGNOUT_SUCCESS' });
+  });
+};
