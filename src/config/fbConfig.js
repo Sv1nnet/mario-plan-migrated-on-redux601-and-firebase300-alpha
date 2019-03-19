@@ -13,6 +13,6 @@ var config = {
   messagingSenderId: "338398631240"
 };
 firebase.initializeApp(config);
-firebase.firestore();
+// firebase.firestore(); // We don't need this anymore because we create firestore in index.js
 
 export default firebase;

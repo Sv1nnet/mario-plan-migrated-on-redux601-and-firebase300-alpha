@@ -1,4 +1,4 @@
-const createProject = project => (dispatch, getState, { getFirebase, getFirestore }) => {
+const createProject = project => (dispatch, getState, { getFirestore }) => {
   const fireStore = getFirestore();
   fireStore.collection('projects').add({
     ...project,

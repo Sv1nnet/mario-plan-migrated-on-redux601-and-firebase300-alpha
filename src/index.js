@@ -14,8 +14,11 @@ import * as serviceWorker from './serviceWorker';
 
 import rootReducer from './store/reducers/rootReducer';
 
+// We enhance compose in order to use Redux DevTools extension
+// https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
+// Create config for rrfProps object. We need this to pass it in the ReactReduxFirebaseProvider component
 const rrfConfig = {
   useFirestoreForProfile: true,
   userProfile: 'users',
@@ -25,14 +28,14 @@ const rrfConfig = {
 const store = createStore(rootReducer,
   composeEnhancers(
     applyMiddleware(thunk.withExtraArgument({ getFirebase, getFirestore })),
-    reduxFirestore(firebase),
+    reduxFirestore(firebase), // still need this line to get access to firestore via getFirestore function (in projectActions, for example)
   ));
 
 const rrfProps = {
   firebase,
   config: rrfConfig,
   dispatch: store.dispatch,
-  createFirestoreInstance,
+  createFirestoreInstance, // Create firestore instead of craete it in fbConfig.js
 };
 
 ReactDOM.render(
