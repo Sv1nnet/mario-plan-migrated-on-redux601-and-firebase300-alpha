@@ -7,16 +7,9 @@ import SignedInLinks from './SignedInLinks';
 import SignedOutLinks from './SignedOutLinks';
 
 const Navbar = (props) => {
-  const { auth } = props;
-  let links;
+  const { auth, profile } = props;
+  const links = auth.uid ? <SignedInLinks profile={profile} /> : <SignedOutLinks />;
 
-  // if auth is loaded then we can decide which component to render.
-  // But if not then we doesn't render anyone
-  if (auth.isLoaded) {
-    links = auth.uid ? <SignedInLinks /> : <SignedOutLinks />;
-  } else {
-    links = null;
-  }
   return (
     <nav className="nav-wrapper grey darken-3">
       <div className="container">
@@ -29,6 +22,7 @@ const Navbar = (props) => {
 
 const mapStateToProps = state => ({
   auth: state.firebase.auth,
+  profile: state.firebase.profile,
 });
 
 export default compose(

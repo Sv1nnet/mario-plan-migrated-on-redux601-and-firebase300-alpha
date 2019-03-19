@@ -13,11 +13,12 @@ const SignedInLinks = (props) => {
     props.signOut(firebase);
   };
 
+  const { profile } = props;
   return (
     <ul className="right">
       <li><NavLink to="/create">New Project</NavLink></li>
       <li><NavLink to="/" onClick={handleSignOut}>Log Out</NavLink></li> {/* I left NavLink instead of anchor tag because I'm using airbnb eslint rules */}
-      <li><NavLink to="/" className="btn btn-floating pink lighten-1">NN</NavLink></li>
+      <li><NavLink to="/" className="btn btn-floating pink lighten-1">{profile.initials}</NavLink></li>
     </ul>
   );
 };

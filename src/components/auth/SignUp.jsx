@@ -1,6 +1,12 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/label-has-for */
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { firebaseConnect } from 'react-redux-firebase';
+import { compose } from 'redux';
+import { Redirect } from 'react-router-dom';
+
+import { signUp } from '../../store/actions/authActions';
 
 class SignUp extends Component {
   state = {
@@ -21,10 +27,20 @@ class SignUp extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log(this.state);
+
+    const { props, state } = this;
+    const { firebase } = props;
+    const newUser = { ...state };
+
+    props.signUp(newUser, firebase);
   }
 
   render() {
+    const { auth, authError } = this.props;
+    if (auth.uid) {
+      return <Redirect to="/" />;
+    }
+
     return (
       <div className="container">
         <form onSubmit={this.handleSubmit} className="white">
@@ -47,6 +63,7 @@ class SignUp extends Component {
           </div>
           <div className="input-field">
             <button type="submit" className="btn pink lighten-1 z-depth-0">Sign Up</button>
+            {authError ? <div className="red-text center"><p>{authError}</p></div> : null}
           </div>
         </form>
       </div>
@@ -54,4 +71,16 @@ class SignUp extends Component {
   }
 }
 
-export default SignUp;
+const mapStateToProps = state => ({
+  auth: state.firebase.auth,
+  authError: state.auth.authError,
+});
+
+const mapDispatchToProps = dispatch => ({
+  signUp: (newUser, firebase) => dispatch(signUp(newUser, firebase)),
+});
+
+export default compose(
+  firebaseConnect(),
+  connect(mapStateToProps, mapDispatchToProps),
+)(SignUp);
