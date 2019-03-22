@@ -1,18 +1,14 @@
+/* eslint-disable quotes */
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
 
-
 // Initialize Firebase
-var config = {
-  apiKey: "AIzaSyC6G8oGB6ZQkoH86HDEscPcCjXqXcBtPSE",
-  authDomain: "mario-plan-df098.firebaseapp.com",
-  databaseURL: "https://mario-plan-df098.firebaseio.com",
-  projectId: "mario-plan-df098",
-  storageBucket: "mario-plan-df098.appspot.com",
-  messagingSenderId: "338398631240"
+const config = {
+  // Put your firebase config here
 };
+
 firebase.initializeApp(config);
-firebase.firestore();
+firebase.firestore().settings({ timestampsInSnapshots: true });
 
 export default firebase;
