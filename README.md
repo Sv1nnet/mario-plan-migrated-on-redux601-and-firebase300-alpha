@@ -16,3 +16,4 @@ I left description about changes in the changed files:
 - SignIn.jsx
 - SignedInLinks.jsx
 - Navbar.jsx
+- firebase.json   (changed "public" directory on "build")
