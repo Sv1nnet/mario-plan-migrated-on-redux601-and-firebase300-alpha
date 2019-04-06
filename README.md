@@ -9,11 +9,12 @@ Original GitHub repo: https://github.com/iamshaunjp/React-Redux-Firebase-App
 ## Changed files
 I left description about changes in the changed files:
 
-- package.json    (react-redux@6.0.1 and react-redux-firebase@3.0.0-alpha.10)
+- package.json
+- firebase.json   (changed "public" directory on "build")
 - index.js
 - authActions.js
 - fbConfig.js
+- App.jsx
 - SignIn.jsx
 - SignedInLinks.jsx
 - Navbar.jsx
-- firebase.json   (changed "public" directory on "build")
